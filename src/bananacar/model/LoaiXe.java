@@ -46,4 +46,12 @@ public class LoaiXe {
     public void setGhiChu(String GhiChu) {
         this.GhiChu = GhiChu;
     }
+    @Override
+    public String toString() {
+        return  TenLoai ;
+    }
+
+    public String toString2() {
+        return  MaLoai ;
+    }
 }

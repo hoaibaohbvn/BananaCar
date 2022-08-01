@@ -20,7 +20,7 @@ public class KhachHangDAO extends BananaCarDAO<KhachHang, String>{
 
     @Override
     public void insert(KhachHang kh) {
-        String sql ="Insert khachHang values (?,?,?,?,?,?,?,?,?,?)";
+        String sql ="Insert khachHang values (?,?,?,?,?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
                 kh.getMaKH(),
                 kh.getHoTen(),
@@ -30,13 +30,12 @@ public class KhachHangDAO extends BananaCarDAO<KhachHang, String>{
                 kh.getNVQuanLy(),
                 kh.getEmail(),
                 kh.getDiaChi(),
-                kh.getGhiChu(),
-                kh.isTrangThai()); 
+                kh.getGhiChu());
     }
 
     @Override
     public void update(KhachHang kh) {
-        String sql = "Update KhachHang set HoTen = ?, DIenThoai=?,gioiTinh=?,Ngaysinh=?,NVQuanLy=?,email= ?, diachi=?, ghichu=?, trangthai=? where makh = ?";
+        String sql = "Update KhachHang set HoTen = ?, DIenThoai=?,gioiTinh=?,Ngaysinh=?,NVQuanLy=?,email= ?, diachi=?, ghichu=?, where makh = ?";
         JdbcHelper.executeUpdate(sql,
                 kh.getHoTen(),
                 kh.getDienThoai(),
@@ -45,8 +44,7 @@ public class KhachHangDAO extends BananaCarDAO<KhachHang, String>{
                 kh.getNVQuanLy(),
                 kh.getEmail(),
                 kh.getDiaChi(),
-                kh.getGhiChu(),
-                kh.isTrangThai(),
+                kh.getGhiChu(),                
                 kh.getMaKH()
                 );
     }
@@ -68,7 +66,6 @@ public class KhachHangDAO extends BananaCarDAO<KhachHang, String>{
         kh.setEmail(rs.getString("Email"));
         kh.setDiaChi(rs.getString("DiaChi"));
         kh.setGhiChu(rs.getString("GhiChu"));
-        kh.setTrangThai(rs.getBoolean("Trangthai"));
         return kh;
     }
     @Override

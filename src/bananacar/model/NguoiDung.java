@@ -20,14 +20,13 @@ public class NguoiDung {
     private Date NgaySinh;
     private String Email;
     private String DiaChi; 
-    private boolean TrangThai;
     private float Luong;
     private boolean VaiTro;
 
     public NguoiDung() {
     }
 
-    public NguoiDung(String TenDangNhap, String MatKhau, String HoTen, String DienThoai, boolean GioiTinh, Date NgaySinh, String Email, String DiaChi, boolean TrangThai, float Luong, boolean VaiTro) {
+    public NguoiDung(String TenDangNhap, String MatKhau, String HoTen, String DienThoai, boolean GioiTinh, Date NgaySinh, String Email, String DiaChi, float Luong, boolean VaiTro) {
         this.TenDangNhap = TenDangNhap;
         this.MatKhau = MatKhau;
         this.HoTen = HoTen;
@@ -36,7 +35,6 @@ public class NguoiDung {
         this.NgaySinh = NgaySinh;
         this.Email = Email;
         this.DiaChi = DiaChi;
-        this.TrangThai = TrangThai;
         this.Luong = Luong;
         this.VaiTro = VaiTro;
     }
@@ -105,13 +103,6 @@ public class NguoiDung {
         this.DiaChi = DiaChi;
     }
 
-    public boolean isTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(boolean TrangThai) {
-        this.TrangThai = TrangThai;
-    }
 
     public float getLuong() {
         return Luong;

@@ -20,7 +20,7 @@ public class NguoiDungDAO extends BananaCarDAO<NguoiDung, String>{
 
     @Override
     public void insert(NguoiDung nd) {
-       String sql ="Insert NguoiDung values (?,?,?,?,?,?,?,?,?,?,?)";
+       String sql ="Insert NguoiDung values (?,?,?,?,?,?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
                 nd.getTenDangNhap(),
                 nd.getMatKhau(),
@@ -30,14 +30,13 @@ public class NguoiDungDAO extends BananaCarDAO<NguoiDung, String>{
                 nd.getNgaySinh(),
                 nd.getEmail(),
                 nd.getDiaChi(),
-                nd.isTrangThai(),
                 nd.getLuong(),
                 nd.isVaiTro()); 
     }
 
     @Override
     public void update(NguoiDung nd) {
-        String sql="UPDATE NguoiDung SET MatKhau=?, HoTen=?, DienThoai=?, GioiTinh=?, NgaySinh=?, Email = ?,DiaChi=?,TrangThai = ?, Luong = ?, VaiTro = ?  WHERE TenDangNhap=?";
+        String sql="UPDATE NguoiDung SET MatKhau=?, HoTen=?, DienThoai=?, GioiTinh=?, NgaySinh=?, Email = ?,DiaChi=?, Luong = ?, VaiTro = ?  WHERE TenDangNhap=?";
         JdbcHelper.executeUpdate(sql, 
                 nd.getMatKhau(),
                 nd.getHoTen(),
@@ -46,7 +45,6 @@ public class NguoiDungDAO extends BananaCarDAO<NguoiDung, String>{
                 nd.getNgaySinh(),
                 nd.getEmail(),
                 nd.getDiaChi(),
-                nd.isTrangThai(),
                 nd.getLuong(),
                 nd.isVaiTro(),
                 nd.getTenDangNhap()
@@ -69,7 +67,6 @@ public class NguoiDungDAO extends BananaCarDAO<NguoiDung, String>{
         nd.setNgaySinh(rs.getDate("NgaySinh"));
         nd.setEmail(rs.getString("Email"));
         nd.setDiaChi(rs.getString("DiaChi"));
-        nd.setTrangThai(rs.getBoolean("TrangThai"));
         nd.setLuong(rs.getFloat("Luong"));
         nd.setVaiTro(rs.getBoolean("VaiTro"));
         return nd;

@@ -20,7 +20,7 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
 
     @Override
     public void insert(Xe xe) {
-        String sql = "Insert Xe values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "Insert Xe values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
                 xe.getMaXe(),
                 xe.getTenXe(),
@@ -29,7 +29,6 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
                 xe.getTonKho(),
                 xe.getDinhMucNhoNhat(),
                 xe.getDinhMucLonNhat(),
-                xe.getGiaVon(),
                 xe.getGiaBan(),
                 xe.getHinh(),
                 xe.isTrangThai(),
@@ -44,7 +43,7 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
 
     @Override
     public void update(Xe xe) {
-        String sql = "Update Xe set TenXe=?,MaHang=?,maloai=?,Tonkho=?,DinhMucLonNhat=?,dinhmucnhonhat=?,GiaVon=?,"
+        String sql = "Update Xe set TenXe=?,MaHang=?,maloai=?,Tonkho=?,DinhMucLonNhat=?,dinhmucnhonhat=?,"
                 + "giaban=?,hinh=?,trangthai=?,chongoi=?,dongco=?,sucmanh=?,taylaitroluc=?,tuikhi=?,HTchongbocungphanh=?,"
                 + "baohanh=? where maxe=?";
         JdbcHelper.executeUpdate(sql,
@@ -54,7 +53,6 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
                 xe.getTonKho(),
                 xe.getDinhMucNhoNhat(),
                 xe.getDinhMucLonNhat(),
-                xe.getGiaVon(),
                 xe.getGiaBan(),
                 xe.getHinh(),
                 xe.isTrangThai(),
@@ -83,7 +81,6 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
         xe.setTonKho(rs.getInt("TonKho"));
         xe.setDinhMucNhoNhat(rs.getInt("DinhMucNhoNhat"));
         xe.setDinhMucLonNhat(rs.getInt("DinhMucLonNhat"));
-        xe.setGiaVon(rs.getInt("GiaVon"));
         xe.setGiaBan(rs.getInt("GiaBan"));
         xe.setHinh(rs.getString("Hinh"));
         xe.setTrangThai(rs.getBoolean("TrangThai"));
@@ -104,7 +101,7 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
 
     @Override
     public Xe selectById(String MaXe) {
-        String sql = "SELECT * FROM LoaiXe WHERE Maxe=?";
+        String sql = "SELECT * FROM Xe WHERE Maxe=?";
         List<Xe> list = selectBySql(sql, MaXe);
         return list.size() > 0 ? list.get(0) : null;
     }

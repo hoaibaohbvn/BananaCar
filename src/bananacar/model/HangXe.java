@@ -76,4 +76,11 @@ public class HangXe {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
+    @Override
+    public String toString() {
+        return  TenHang;
+    }
+    public String toString2() {
+        return  MaHang;
+    }
 }

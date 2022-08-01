@@ -21,12 +21,11 @@ public class KhachHang {
     private String Email;
     private String DiaChi;
     private String GhiChu;
-    private boolean TrangThai;
 
     public KhachHang() {
     }
 
-    public KhachHang(String MaKH, String HoTen, String DienThoai, boolean GioiTinh, Date NgaySinh, String NVQuanLy, String Email, String DiaChi, String GhiChu, boolean TrangThai) {
+    public KhachHang(String MaKH, String HoTen, String DienThoai, boolean GioiTinh, Date NgaySinh, String NVQuanLy, String Email, String DiaChi, String GhiChu) {
         this.MaKH = MaKH;
         this.HoTen = HoTen;
         this.DienThoai = DienThoai;
@@ -36,7 +35,7 @@ public class KhachHang {
         this.Email = Email;
         this.DiaChi = DiaChi;
         this.GhiChu = GhiChu;
-        this.TrangThai = TrangThai;
+
     }
 
     public String getMaKH() {
@@ -111,13 +110,6 @@ public class KhachHang {
         this.GhiChu = GhiChu;
     }
 
-    public boolean isTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(boolean TrangThai) {
-        this.TrangThai = TrangThai;
-    }
 
     
     

@@ -19,7 +19,6 @@ public class Xe{
     private int TonKho;
     private int DinhMucNhoNhat;
     private int DinhMucLonNhat;
-    private float GiaVon;
     private float GiaBan;
     private String Hinh;
     private boolean TrangThai;
@@ -34,7 +33,7 @@ public class Xe{
     public Xe() {
     }
 
-    public Xe(String MaXe, String TenXe, String MaHang, String MaLoai, int TonKho, int DinhMucNhoNhat, int DinhMucLonNhat, float GiaVon, float GiaBan, String Hinh, boolean TrangThai, int ChoNgoi, int DongCo, int SucManh, boolean TayLaiTroLuc, boolean TuiKhi, boolean HTChongBoCungPhanh, int BaoHanh) {
+    public Xe(String MaXe, String TenXe, String MaHang, String MaLoai, int TonKho, int DinhMucNhoNhat, int DinhMucLonNhat, float GiaBan, String Hinh, boolean TrangThai, int ChoNgoi, int DongCo, int SucManh, boolean TayLaiTroLuc, boolean TuiKhi, boolean HTChongBoCungPhanh, int BaoHanh) {
         this.MaXe = MaXe;
         this.TenXe = TenXe;
         this.MaHang = MaHang;
@@ -42,7 +41,6 @@ public class Xe{
         this.TonKho = TonKho;
         this.DinhMucNhoNhat = DinhMucNhoNhat;
         this.DinhMucLonNhat = DinhMucLonNhat;
-        this.GiaVon = GiaVon;
         this.GiaBan = GiaBan;
         this.Hinh = Hinh;
         this.TrangThai = TrangThai;
@@ -54,7 +52,10 @@ public class Xe{
         this.HTChongBoCungPhanh = HTChongBoCungPhanh;
         this.BaoHanh = BaoHanh;
     }
-
+    @Override
+    public String toString() {
+        return  TenXe ;
+    }
     public String getMaXe() {
         return MaXe;
     }
@@ -109,14 +110,6 @@ public class Xe{
 
     public void setDinhMucLonNhat(int DinhMucLonNhat) {
         this.DinhMucLonNhat = DinhMucLonNhat;
-    }
-
-    public float getGiaVon() {
-        return GiaVon;
-    }
-
-    public void setGiaVon(float GiaVon) {
-        this.GiaVon = GiaVon;
     }
 
     public float getGiaBan() {
@@ -198,4 +191,5 @@ public class Xe{
     public void setBaoHanh(int BaoHanh) {
         this.BaoHanh = BaoHanh;
     }
+    
 }
