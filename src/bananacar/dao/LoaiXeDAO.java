@@ -79,5 +79,8 @@ public class LoaiXeDAO extends BananaCarDAO<LoaiXe, String>{
             throw new RuntimeException();
         }
     }
-    
+    public List<LoaiXe> selectByKeyword(String maloai, String tenloai) {
+        String sql="SELECT * FROM LoaiXe WHERE maloai LIKE ? or tenloai like ?";
+        return selectBySql(sql, "%"+maloai+"%", "%"+tenloai+"%");
+    }
 }

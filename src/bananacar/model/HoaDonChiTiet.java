@@ -5,28 +5,25 @@
  */
 package bananacar.model;
 
+import bananacar.dao.HoaDonChiTietDAO;
+import java.io.Serializable;
+import java.util.HashMap;
+
 /**
  *
  * @author USER
  */
-public class HoaDonChiTiet {
+public class HoaDonChiTiet implements Serializable{
     private int MaHDCT;
     private String MaHD;
     private String MaXe;
     private float DonGia;
     private int SoLuong;
     private float ThanhTien;
-
+    HoaDonChiTietDAO daohdct = new HoaDonChiTietDAO();
+    private HashMap<String, XeDTO> chiTietHoaDon;
     public HoaDonChiTiet() {
-    }
-
-    public HoaDonChiTiet(int MaHDCT, String MaHD, String MaXe, float DonGia, int SoLuong, float ThanhTien) {
-        this.MaHDCT = MaHDCT;
-        this.MaHD = MaHD;
-        this.MaXe = MaXe;
-        this.DonGia = DonGia;
-        this.SoLuong = SoLuong;
-        this.ThanhTien = ThanhTien;
+        chiTietHoaDon = new HashMap<>();
     }
 
     public int getMaHDCT() {
@@ -76,5 +73,48 @@ public class HoaDonChiTiet {
     public void setThanhTien(float ThanhTien) {
         this.ThanhTien = ThanhTien;
     }
+
+    public HashMap<String, XeDTO> getChiTietHoaDon() {
+        return chiTietHoaDon;
+    }
+
+    public void setChiTietHoaDon(HashMap<String, XeDTO> chiTietHoaDon) {
+        this.chiTietHoaDon = chiTietHoaDon;
+    }
+    public void addProduct(XeDTO xe) {
+        String MaXe = xe.getXe().getMaXe();
+        // nếu tồn tại SP trong giỏ hàng thì cộng thêm số lượng mua mới vào
+        if (chiTietHoaDon.containsKey(MaXe)) {
+            // soLuong = soLuongCu + soLuongMoi
+            
+            int soLuong = chiTietHoaDon.get(MaXe).getSoLuong() + xe.getSoLuong();
+            // cập nhật lại số lượng:
+            chiTietHoaDon.get(MaXe).setSoLuong(soLuong);
+            
+        } else { // nếu SP chưa có trong giỏ hàng thì put mới vào hashmap
+            chiTietHoaDon.put(MaXe, xe);
+            
+        }
+    }
     
+    public boolean removeProduct(String MaXe) {
+        // kiểm tra SP nếu tồn tại thì remove khỏi hashmap
+        if (chiTietHoaDon.containsKey(MaXe)) {
+            chiTietHoaDon.remove(MaXe);
+            return true;
+        } else { 
+            return false;
+        }
+    }
+    public void addCTHD(XeDTO xe){
+        int MaHDCT = xe.getMaCTHD().getMaHDCT();
+        if(chiTietHoaDon.containsKey(MaHDCT)){
+            chiTietHoaDon.get(MaHDCT).getMaCTHD();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return MaHD;
+    }
 }

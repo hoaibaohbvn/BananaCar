@@ -81,7 +81,7 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
         xe.setTonKho(rs.getInt("TonKho"));
         xe.setDinhMucNhoNhat(rs.getInt("DinhMucNhoNhat"));
         xe.setDinhMucLonNhat(rs.getInt("DinhMucLonNhat"));
-        xe.setGiaBan(rs.getInt("GiaBan"));
+        xe.setGiaBan(rs.getFloat("GiaBan"));
         xe.setHinh(rs.getString("Hinh"));
         xe.setTrangThai(rs.getBoolean("TrangThai"));
         xe.setChoNgoi(rs.getInt("ChoNgoi"));
@@ -123,4 +123,8 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
         }
     }
     
+    public List<Xe> selectByKeyword(String maxe, String tenxe) {
+        String sql="SELECT * FROM Xe WHERE maxe LIKE ? or tenxe like ?";
+        return selectBySql(sql, "%"+maxe+"%", "%"+tenxe+"%");
+    }
 }

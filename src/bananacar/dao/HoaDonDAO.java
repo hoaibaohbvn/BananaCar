@@ -20,7 +20,7 @@ public class HoaDonDAO extends BananaCarDAO<HoaDon, String>{
 
     @Override
     public void insert(HoaDon hd) {
-        String sql ="Insert HoaDon values(?,?,?,?,?,?,?,?,?)";
+        String sql ="Insert HoaDon values(?,?,?,?,?,?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
                 hd.getMaHD(),
                 hd.getMaKH(),
@@ -30,12 +30,13 @@ public class HoaDonDAO extends BananaCarDAO<HoaDon, String>{
                 hd.getGiamGia(),
                 hd.getGTGT(),
                 hd.getThanhTien(),
-                hd.getHoaHong()); 
+                hd.getHoaHong(),
+                hd.getTongTienHang()); 
     }
 
     @Override
     public void update(HoaDon hd) {
-        String sql="UPDATE HoaDong SET makh=?, manhanvien=?, ngayban=?,tongsoluong=?,giamgia=?,gtgt=?,thanhtien=?,hoahong=? WHERE Mahd=?";
+        String sql="UPDATE HoaDon SET makh=?, manhanvien=?, ngayban=?,tongsoluong=?,giamgia=?,gtgt=?,thanhtien=?,hoahong=?,tongtienhang=? WHERE Mahd=?";
         JdbcHelper.executeUpdate(sql, 
                 hd.getMaKH(),
                 hd.getMaNhanVien(),
@@ -45,6 +46,7 @@ public class HoaDonDAO extends BananaCarDAO<HoaDon, String>{
                 hd.getGTGT(),
                 hd.getThanhTien(),
                 hd.getHoaHong(),
+                hd.getTongTienHang(),
                 hd.getMaHD()
             );
     }
@@ -66,6 +68,7 @@ public class HoaDonDAO extends BananaCarDAO<HoaDon, String>{
         hd.setGTGT(rs.getFloat("gtgt"));
         hd.setThanhTien(rs.getFloat("thanhtien"));
         hd.setHoaHong(rs.getFloat("Honghong"));
+        hd.setTongTienHang(rs.getFloat("tongtienhang"));
         return hd;
     }
     

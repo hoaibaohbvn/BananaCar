@@ -103,7 +103,6 @@ public class NguoiDung {
         this.DiaChi = DiaChi;
     }
 
-
     public float getLuong() {
         return Luong;
     }
@@ -119,6 +118,6 @@ public class NguoiDung {
     public void setVaiTro(boolean VaiTro) {
         this.VaiTro = VaiTro;
     }
-    
+
     
 }

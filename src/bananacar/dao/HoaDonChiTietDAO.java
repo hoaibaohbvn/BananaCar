@@ -21,9 +21,8 @@ public class HoaDonChiTietDAO extends BananaCarDAO<HoaDonChiTiet, String>{
 
     @Override
     public void insert(HoaDonChiTiet hdct) {
-        String sql ="Insert hoadonchitiet values (?,?,?,?,?,?)";
+        String sql ="Insert hoadonchitiet values (?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
-                hdct.getMaHDCT(),
                 hdct.getMaHD(),
                 hdct.getMaXe(),
                 hdct.getDonGia(),
@@ -90,5 +89,7 @@ public class HoaDonChiTietDAO extends BananaCarDAO<HoaDonChiTiet, String>{
             throw new RuntimeException();
         }
     }
+
+   
     
 }

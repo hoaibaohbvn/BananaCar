@@ -101,4 +101,13 @@ public class NguoiDungDAO extends BananaCarDAO<NguoiDung, String>{
         }
     }
     
+    public List<NguoiDung> selectByKeyword(String tendangnhap, String tennv) {
+        String sql="SELECT * FROM Nguoidung WHERE tendangnhap LIKE ? or hoten like ?";
+        return selectBySql(sql, "%"+tendangnhap+"%", "%"+tennv+"%");
+    }
+    public NguoiDung timTenDangNhap(String TenDangNhap){
+        String sql = "SELECT * FROM NguoiDung WHERE TenDangNhap = ?";
+        List<NguoiDung> list = selectBySql(sql, TenDangNhap);
+        return list.size() > 0 ? list.get(0) : null;
+    }
 }

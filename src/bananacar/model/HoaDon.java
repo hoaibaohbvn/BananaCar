@@ -6,6 +6,8 @@
 package bananacar.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  *
@@ -21,11 +23,12 @@ public class HoaDon {
     private float GTGT;
     private float ThanhTien;
     private float HoaHong;
+    private float TongTienHang;
 
     public HoaDon() {
     }
 
-    public HoaDon(String MaHD, String MaKH, String MaNhanVien, Date NgayBan, int TongSoLuong, float GiamGia, float GTGT, float ThanhTien, float HoaHong) {
+    public HoaDon(String MaHD, String MaKH, String MaNhanVien, Date NgayBan, int TongSoLuong, float GiamGia, float GTGT, float ThanhTien, float HoaHong, float TongTienHang) {
         this.MaHD = MaHD;
         this.MaKH = MaKH;
         this.MaNhanVien = MaNhanVien;
@@ -35,6 +38,7 @@ public class HoaDon {
         this.GTGT = GTGT;
         this.ThanhTien = ThanhTien;
         this.HoaHong = HoaHong;
+        this.TongTienHang = TongTienHang;
     }
 
     public String getMaHD() {
@@ -109,6 +113,12 @@ public class HoaDon {
         this.HoaHong = HoaHong;
     }
 
-    
+    public float getTongTienHang() {
+        return TongTienHang;
+    }
+
+    public void setTongTienHang(float TongTienHang) {
+        this.TongTienHang = TongTienHang;
+    }
     
 }

@@ -6,6 +6,7 @@
 package bananacar.ui;
 
 import bananacar.dao.LoaiXeDAO;
+import bananacar.helper.MsgBox;
 import bananacar.model.LoaiXe;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +21,7 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
      * Creates new form LoaiXeJDialog
      */
     LoaiXeDAO daoLoaiXe = new LoaiXeDAO();
+    int row = 0;
     public LoaiXeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -37,15 +39,15 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabsLoaiXe = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtMaLoai = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTenLoai = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtGhiChu = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -55,9 +57,7 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
         tblDanhSachLoaiXe = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtKeys = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -67,25 +67,41 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Mã loại");
 
-        jTextField1.setText("jTextField1");
-
         jLabel3.setText("Tên loại");
-
-        jTextField2.setText("jTextField2");
 
         jLabel4.setText("Ghi chú");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtGhiChu.setColumns(20);
+        txtGhiChu.setRows(5);
+        jScrollPane1.setViewportView(txtGhiChu);
 
         jButton1.setText("Thêm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Sửa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Xóa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Mới");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -95,9 +111,9 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(txtMaLoai, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                         .addComponent(jLabel3)
-                        .addComponent(jTextField2)
+                        .addComponent(txtTenLoai)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -115,13 +131,13 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTenLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
@@ -138,7 +154,7 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
                 .addContainerGap(107, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cập nhập", jPanel1);
+        tabsLoaiXe.addTab("Cập nhập", jPanel1);
 
         tblDanhSachLoaiXe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,18 +166,31 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
             new String [] {
                 "Mã loại", "Tên loại", "Ghi chú"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDanhSachLoaiXe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDanhSachLoaiXeMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblDanhSachLoaiXe);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
 
-        jLabel5.setText("Mã loại");
+        jLabel5.setText("Nhập mã loại hoặc tên loại");
 
-        jTextField3.setText("jTextField3");
-
-        jLabel6.setText("Tên loại");
-
-        jTextField4.setText("jTextField4");
+        txtKeys.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKeysKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -169,14 +198,10 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(jTextField4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(txtKeys)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,11 +209,7 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKeys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -209,11 +230,11 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Danh sách", jPanel2);
+        tabsLoaiXe.addTab("Danh sách", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -225,7 +246,7 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTabbedPane1))
+                    .addComponent(tabsLoaiXe))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -234,12 +255,49 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
+                .addComponent(tabsLoaiXe)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        insert();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        delete();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        update();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        clearForm();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tblDanhSachLoaiXeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachLoaiXeMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.row = tblDanhSachLoaiXe.rowAtPoint(evt.getPoint());
+            if (this.row >= 0) {
+                this.edit();
+                tabsLoaiXe.setSelectedIndex(0);
+            }
+        }
+    }//GEN-LAST:event_tblDanhSachLoaiXeMouseClicked
+
+    private void txtKeysKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeysKeyReleased
+        // TODO add your handling code here:
+        fillTableToTable();
+        clearForm();
+    }//GEN-LAST:event_txtKeysKeyReleased
 
     /**
      * @param args the command line arguments
@@ -293,25 +351,25 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTabbedPane tabsLoaiXe;
     private javax.swing.JTable tblDanhSachLoaiXe;
+    private javax.swing.JTextArea txtGhiChu;
+    private javax.swing.JTextField txtKeys;
+    private javax.swing.JTextField txtMaLoai;
+    private javax.swing.JTextField txtTenLoai;
     // End of variables declaration//GEN-END:variables
     private void fillTableToTable() {
         DefaultTableModel model = (DefaultTableModel) tblDanhSachLoaiXe.getModel();
         model.setRowCount(0);
         try {
-            List<LoaiXe> list  = daoLoaiXe.selectAll();
+            String maLoai = txtKeys.getText();
+            String tenLoai = txtKeys.getText();
+            List<LoaiXe> list  = daoLoaiXe.selectByKeyword(maLoai, tenLoai);
             
             for (LoaiXe lx : list) {
                 Object[] row = {
@@ -322,6 +380,80 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
                 model.addRow(row);
             }
         } catch (Exception e) {
+        }
+    }
+    private void setForm(LoaiXe lx){
+        txtMaLoai.setText(lx.getMaLoai());
+        txtTenLoai.setText(lx.getTenLoai());
+        txtGhiChu.setText(lx.getGhiChu());
+    }
+    private LoaiXe getForm(){
+        LoaiXe lx = new LoaiXe();
+        lx.setMaLoai(txtMaLoai.getText());
+        lx.setTenLoai(txtTenLoai.getText());
+        lx.setGhiChu(txtGhiChu.getText());
+        return lx;
+    }
+    private void clearForm() {
+        try {
+            LoaiXe model = new LoaiXe();
+            this.setForm(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void insert() {
+        LoaiXe lx = getForm();
+        try {
+            daoLoaiXe.insert(lx);
+            this.fillTableToTable();
+            this.clearForm();
+            MsgBox.alert(this, "Thêm thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Thêm thất bại");
+        }
+
+    }
+    
+    void edit() {
+        try {
+            String maLoai = (String) tblDanhSachLoaiXe.getValueAt(this.row, 0);
+            
+            LoaiXe model = daoLoaiXe.selectById(maLoai);
+            if (model != null) {
+                this.setForm(model);
+                
+            }
+        } catch (Exception e) {
+            MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
+        }
+    }
+    private void delete() {
+        if (MsgBox.confirm(this, "Bạn muốn xóa ?")) {
+            String maLoai = txtMaLoai.getText();
+        try {
+            daoLoaiXe.delete(maLoai);
+            fillTableToTable();
+            this.clearForm();
+
+            MsgBox.alert(this, "Xóa thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Xóa không thành công");
+        }
+        }
+        
+    }
+    private void update() {
+        LoaiXe lx = getForm();
+        try {
+            daoLoaiXe.update(lx);
+            fillTableToTable();
+            this.clearForm();
+            MsgBox.alert(this, "Sửa thành công");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Sửa không thành công");
         }
     }
 }

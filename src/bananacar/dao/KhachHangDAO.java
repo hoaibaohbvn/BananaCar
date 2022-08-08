@@ -106,4 +106,8 @@ public class KhachHangDAO extends BananaCarDAO<KhachHang, String>{
         }
         return dem;
     }
+    public List<KhachHang> selectByKeyword(String makh, String hoten) {
+        String sql="SELECT * FROM Khachhang WHERE maKH LIKE ? or hoten like ?";
+        return selectBySql(sql, "%"+makh+"%", "%"+hoten+"%");
+    }
 }

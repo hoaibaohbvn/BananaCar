@@ -21,7 +21,7 @@ public class PhieuNhapChiTietDAO extends BananaCarDAO<PhieuNhapChiTiet, String>{
 
     @Override
     public void insert(PhieuNhapChiTiet pnct) {
-        String sql ="Insert LoaiXe values (?,?,?,?,?,?)";
+        String sql ="Insert PhieuNhapChiTiet values (?,?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
                 pnct.getMaPNCT(),
                 pnct.getMaPhieuNhap(),

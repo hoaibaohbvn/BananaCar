@@ -11,11 +11,14 @@ import bananacar.dao.XeDAO;
 import bananacar.helper.Auth;
 import bananacar.helper.MsgBox;
 import bananacar.helper.XDate;
+import bananacar.helper.XImage;
 import bananacar.model.HangXe;
 import bananacar.model.LoaiXe;
 import bananacar.model.Xe;
+import java.io.File;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,7 +34,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
     XeDAO daoXe = new XeDAO();
     LoaiXeDAO daoLoaiXe = new LoaiXeDAO();
     HangXeDAO daoHangXe = new HangXeDAO();
-   
+    JFileChooser fileChooser = new JFileChooser();
     public DanhSachXeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -98,13 +101,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         tblDanhSachXe = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
-        cboHangXe = new javax.swing.JComboBox<>();
-        jLabel22 = new javax.swing.JLabel();
-        cboLoaiXe = new javax.swing.JComboBox<>();
+        txtKeys = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -116,9 +113,9 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Tên xe");
 
-        jLabel4.setText("Tên hãng xe");
+        jLabel4.setText("Mã hãng xe");
 
-        jLabel5.setText("Tên loại xe");
+        jLabel5.setText("Mã loại xe");
 
         cboLoaiXe2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboLoaiXe2.setSelectedIndex(-1);
@@ -153,7 +150,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
         jLabel18.setText("Bảo hành");
 
-        lblHinh.setText("Ảnh");
+        lblHinh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         jButton1.setText("Chọn ảnh");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -170,8 +167,18 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         });
 
         jButton3.setText("Xóa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Sửa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Mới");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -363,27 +370,11 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm xe"));
 
-        jLabel9.setText("Theo mã");
+        jLabel9.setText("Nhập mã xe hoặc tên xe");
 
-        jLabel20.setText("Theo tên");
-
-        jLabel21.setText("Theo hãng");
-
-        cboHangXe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cboHangXe.setSelectedIndex(-1);
-        cboHangXe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboHangXeActionPerformed(evt);
-            }
-        });
-
-        jLabel22.setText("Theo loại");
-
-        cboLoaiXe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cboLoaiXe.setSelectedIndex(-1);
-        cboLoaiXe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboLoaiXeActionPerformed(evt);
+        txtKeys.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKeysKeyReleased(evt);
             }
         });
 
@@ -393,22 +384,10 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboHangXe, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
-                .addGap(55, 55, 55)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboLoaiXe, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(txtKeys)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,15 +395,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel22))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboHangXe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboLoaiXe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKeys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -436,7 +407,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -445,7 +416,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -478,6 +449,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        this.selectImage();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -490,15 +462,6 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         this.clearForm();
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void cboHangXeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboHangXeActionPerformed
-        // TODO add your handling code here:
-        //this.selectComboBox();
-    }//GEN-LAST:event_cboHangXeActionPerformed
-
-    private void cboLoaiXeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLoaiXeActionPerformed
-
-    }//GEN-LAST:event_cboLoaiXeActionPerformed
-
     private void tblDanhSachXeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachXeMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
@@ -509,6 +472,22 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_tblDanhSachXeMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        delete();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        update();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtKeysKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeysKeyReleased
+        // TODO add your handling code here:
+        fillTableToTable();
+        clearForm();
+    }//GEN-LAST:event_txtKeysKeyReleased
 
     /**
      * @param args the command line arguments
@@ -554,9 +533,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboHTPhanh;
-    private javax.swing.JComboBox<String> cboHangXe;
     private javax.swing.JComboBox<String> cboHangXe2;
-    private javax.swing.JComboBox<String> cboLoaiXe;
     private javax.swing.JComboBox<String> cboLoaiXe2;
     private javax.swing.JComboBox<String> cboTLTL;
     private javax.swing.JComboBox<String> cboTrangThai;
@@ -578,9 +555,6 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -592,8 +566,6 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel lblHinh;
     private javax.swing.JTabbedPane tabsXe;
     private javax.swing.JTable tblDanhSachXe;
@@ -603,6 +575,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtDMNN;
     private javax.swing.JTextField txtDongCo;
     private javax.swing.JTextField txtGiaBan;
+    private javax.swing.JTextField txtKeys;
     private javax.swing.JTextField txtMaXe;
     private javax.swing.JTextField txtSucManh;
     private javax.swing.JTextField txtTenXe;
@@ -612,9 +585,10 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tblDanhSachXe.getModel();
         model.setRowCount(0);
         try {
-            List<Xe> list  = daoXe.selectAll();
-            HangXe hx = (HangXe) cboHangXe.getSelectedItem();
-            LoaiXe lx = (LoaiXe) cboLoaiXe.getSelectedItem();
+            String maxe = txtKeys.getText();
+            String tenxe = txtKeys.getText();
+            List<Xe> list  = daoXe.selectByKeyword(maxe, tenxe);
+            
             for (Xe xe : list) {
                 daoHangXe.selectAll();
                 Object[] row = {
@@ -635,14 +609,14 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         }
     }
     void fillComboBoxHangXe() { // 
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cboHangXe.getModel();
+        
         DefaultComboBoxModel model2 = (DefaultComboBoxModel) cboHangXe2.getModel();//kết nối model với cbo
-        model.removeAllElements();   //xóa toàn bộ item của cbo
+        
         model2.removeAllElements();
         try {
             List<HangXe> list = daoHangXe.selectAll();
             for (HangXe hx: list) {
-                model.addElement(hx);
+                
                 model2.addElement(hx.toString2());// lấy tên chuyên đề đưa vào cboChuyenDe  
             }
         } catch (Exception e) {
@@ -651,14 +625,14 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
     }
     
     void fillComboBoxLoaiXe(){
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cboLoaiXe.getModel();
+        
         DefaultComboBoxModel model2 = (DefaultComboBoxModel) cboLoaiXe2.getModel();//kết nối model với cbo
-        model.removeAllElements();  //xóa toàn bộ item của cbo
+        
         model2.removeAllElements();
         try {
             List<LoaiXe> list = daoLoaiXe.selectAll();
             for (LoaiXe lx: list) {
-                model.addElement(lx);
+                
                 model2.addElement(lx.toString2());// lấy tên chuyên đề đưa vào cboChuyenDe 
             }
         } catch (Exception e) {
@@ -692,8 +666,8 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
     private void setForm(Xe xe){
         txtMaXe.setText(xe.getMaXe());
         txtTenXe.setText(xe.getTenXe());
-        cboHangXe2.getModel().setSelectedItem(daoHangXe.selectById(xe.getMaHang()));
-        cboLoaiXe2.getModel().setSelectedItem(daoLoaiXe.selectById(xe.getMaLoai()));
+        cboHangXe2.setSelectedItem(xe.getMaHang());
+        cboLoaiXe2.setSelectedItem(xe.getMaLoai());
         txtTonKho.setText(String.valueOf(xe.getTonKho()));
         txtDMNN.setText(String.valueOf(xe.getDinhMucNhoNhat()));
         txtDMLN.setText(String.valueOf(xe.getDinhMucLonNhat()));
@@ -759,6 +733,49 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             MsgBox.alert(this, "Lỗi truy vấn dữ liệu!");
+        }
+    }
+    
+    void selectImage() {
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { //nếu người dùng đã chọn đc file
+            File file = fileChooser.getSelectedFile();    //lấy file người dùng chọn
+            XImage.save(file); //sao chép file đã chọn thư mục logos
+            
+                // Hiển thị hình lên form
+                lblHinh.setIcon(XImage.read(file.getName())); //file.getName(); lấy tên của file
+                
+                //ImageIcon readLogo(String tenFile) đọc file trong thư mục logos theo tên file trả về ImageIcon
+                //void setIcon(ImageIcon icon) set Icon cho lbl
+                
+                lblHinh.setToolTipText(file.getName());
+            
+        }
+    }
+    private void delete() {
+        if (MsgBox.confirm(this, "Bạn muốn xóa ?")) {
+            String maXe = txtMaXe.getText();
+        try {
+            daoXe.delete(maXe);
+            fillTableToTable();
+            this.clearForm();
+
+            MsgBox.alert(this, "Xóa thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+            MsgBox.alert(this, "Xóa không thành công");
+        }
+        }
+        
+    }
+    private void update() {
+        Xe xe = getForm();
+        try {
+            daoXe.update(xe);
+            fillTableToTable();
+            this.clearForm();
+            MsgBox.alert(this, "Sửa thành công");
+        } catch (Exception e) {
+            MsgBox.alert(this, "Sửa không thành công");
         }
     }
 }

@@ -38,4 +38,5 @@ public class MsgBox {
     public static String prompt(Component parent,String messages){
         return JOptionPane.showInputDialog(parent, messages, "Hệ thống quản lý Banana Car",JOptionPane.INFORMATION_MESSAGE);
     }
+    
 }

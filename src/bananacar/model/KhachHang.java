@@ -110,7 +110,11 @@ public class KhachHang {
         this.GhiChu = GhiChu;
     }
 
-
+    
+    @Override
+    public String toString() {
+        return  MaKH;
+    }
     
     
 }

@@ -87,5 +87,9 @@ public class HangXeDAO extends BananaCarDAO<HangXe, String>{
             throw new RuntimeException();
         }
     }
+    public List<HangXe> selectByKeyword(String mahang, String tenhang) {
+        String sql="SELECT * FROM HangXe WHERE maHang LIKE ? or tenhang like ?";
+        return selectBySql(sql, "%"+mahang+"%", "%"+tenhang+"%");
+    }
     
 }
