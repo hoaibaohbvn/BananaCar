@@ -7,8 +7,12 @@ package bananacar.ui;
 
 import bananacar.dao.LoaiXeDAO;
 import bananacar.helper.MsgBox;
+import bananacar.helper.utilityHelper;
 import bananacar.model.LoaiXe;
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import java.util.List;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -67,7 +71,11 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Mã loại");
 
+        txtMaLoai.setName("Mã loại"); // NOI18N
+
         jLabel3.setText("Tên loại");
+
+        txtTenLoai.setName("Tên loại"); // NOI18N
 
         jLabel4.setText("Ghi chú");
 
@@ -264,7 +272,20 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        insert();
+        if (utilityHelper.checkNullText(txtMaLoai)
+                && utilityHelper.checkNullText(txtTenLoai)
+//                && utilityHelper.checkNullText(txtNgaySinh)
+                ) {
+            if (utilityHelper.checkMaKH(txtMaLoai)
+                    && utilityHelper.checkName(txtTenLoai)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    ) {
+                if (checkTrungMa(txtMaLoai)) {
+                    insert();
+                } else {
+                }
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -274,7 +295,17 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        update();
+        if (utilityHelper.checkNullText(txtTenLoai)
+//                && utilityHelper.checkNullText(txtNgaySinh)
+                )
+                
+                        {
+            if (utilityHelper.checkName(txtTenLoai)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    ) {
+                update();
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -454,6 +485,16 @@ public class LoaiXeJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Sửa thành công");
         } catch (Exception e) {
             MsgBox.alert(this, "Sửa không thành công");
+        }
+    }
+    public boolean checkTrungMa(JTextField txt) {
+        txt.setBackground(white);
+        if (daoLoaiXe.selectById(txt.getText()) == null) {
+            return true;
+        } else {
+            txt.setBackground(pink);
+            MsgBox.alert(this, txt.getName() + " đã bị tồn tại.");
+            return false;
         }
     }
 }

@@ -5,6 +5,9 @@
  */
 package bananacar.model;
 
+import bananacar.dao.PhieuNhapChiTietDAO;
+import java.util.HashMap;
+
 /**
  *
  * @author USER
@@ -16,17 +19,10 @@ public class PhieuNhapChiTiet {
     private int SoLuong;
     private float GiaNhap;
     private float ThanhTien;
-
+    PhieuNhapChiTietDAO daopnct = new PhieuNhapChiTietDAO();
+    private HashMap<String, XeDTO> chiTietPhieuNhap;
     public PhieuNhapChiTiet() {
-    }
-
-    public PhieuNhapChiTiet(int MaPNCT, String MaPhieuNhap, String MaXe, int SoLuong, float GiaNhap, float ThanhTien) {
-        this.MaPNCT = MaPNCT;
-        this.MaPhieuNhap = MaPhieuNhap;
-        this.MaXe = MaXe;
-        this.SoLuong = SoLuong;
-        this.GiaNhap = GiaNhap;
-        this.ThanhTien = ThanhTien;
+        chiTietPhieuNhap = new HashMap<>();
     }
 
     public int getMaPNCT() {
@@ -76,5 +72,51 @@ public class PhieuNhapChiTiet {
     public void setThanhTien(float ThanhTien) {
         this.ThanhTien = ThanhTien;
     }
+
+    public PhieuNhapChiTietDAO getDaopnct() {
+        return daopnct;
+    }
+
+    public void setDaopnct(PhieuNhapChiTietDAO daopnct) {
+        this.daopnct = daopnct;
+    }
+
+    public HashMap<String, XeDTO> getChiTietPhieuNhap() {
+        return chiTietPhieuNhap;
+    }
+
+    public void setChiTietPhieuNhap(HashMap<String, XeDTO> chiTietPhieuNhap) {
+        this.chiTietPhieuNhap = chiTietPhieuNhap;
+    }
+
+    public void addProduct(XeDTO xe) {
+        String MaXe = xe.getXe().getMaXe();
+        // nếu tồn tại SP trong giỏ hàng thì cộng thêm số lượng mua mới vào
+        if (chiTietPhieuNhap.containsKey(MaXe)) {
+            // soLuong = soLuongCu + soLuongMoi
+            
+            int soLuong = chiTietPhieuNhap.get(MaXe).getSoLuong() + xe.getSoLuong();
+            // cập nhật lại số lượng:
+            chiTietPhieuNhap.get(MaXe).setSoLuong(soLuong);
+            
+        } else { // nếu SP chưa có trong giỏ hàng thì put mới vào hashmap
+            chiTietPhieuNhap.put(MaXe, xe);
+            
+        }
+    }
     
+    public boolean removeProduct(String MaXe) {
+        // kiểm tra SP nếu tồn tại thì remove khỏi hashmap
+        if (chiTietPhieuNhap.containsKey(MaXe)) {
+            chiTietPhieuNhap.remove(MaXe);
+            return true;
+        } else { 
+            return false;
+        }
+    }
+    
+    @Override
+    public String toString() {
+        return MaPhieuNhap;
+    }
 }

@@ -64,14 +64,14 @@ public class HoaDonTraGopDAO extends BananaCarDAO<HoaDonTraGop, String>{
 
     private HoaDonTraGop readFormResultSet(ResultSet rs) throws SQLException{
         HoaDonTraGop hdtg = new HoaDonTraGop();
-        hdtg.setMaHDTG(rs.getInt("maHDtg"));
+        hdtg.setMaHDTG(rs.getString("maHDtg"));
         hdtg.setMaKH(rs.getString("maKh"));
         hdtg.setMaNV(rs.getString("manv"));
         hdtg.setNgayBan(rs.getDate("NgayBan"));
         hdtg.setTongSoLuong(rs.getInt("tongsoluong"));
         hdtg.setGiamGia(rs.getFloat("giamgia"));
         hdtg.setGTGT(rs.getFloat("gtgt"));
-        hdtg.setSoNamTraGop(rs.getInt("SOmantragop"));
+        hdtg.setSoNamTraGop(rs.getInt("Sonamtragop"));
         hdtg.setTraGopMoiThang(rs.getFloat("Tragopmoithang"));
         hdtg.setTongTienTraGop(rs.getFloat("TongTienTraGop"));
         hdtg.setTongTienXe(rs.getFloat("tongtienxe"));
@@ -114,5 +114,19 @@ public class HoaDonTraGopDAO extends BananaCarDAO<HoaDonTraGop, String>{
             dem = rs.getInt(1);
         }
         return dem;
+    }
+    public int tongThanhTien() throws SQLException{
+        int dem = 0;
+        String sql = "SELECT SUM(TongTientragop) AS 'COUNT' FROM HoaDontragop";
+        ResultSet rs = JdbcHelper.executeQuery(sql);
+        while(rs.next()){
+            dem = rs.getInt(1);
+        }
+        return dem;
+    }
+    
+    public List<HoaDonTraGop> selectByKeyword(String mahdtg, String makhtg) {
+        String sql="SELECT * FROM HoaDonTragop WHERE mahdtg LIKE ? or makh like ?";
+        return selectBySql(sql, "%"+mahdtg+"%", "%"+makhtg+"%");
     }
 }

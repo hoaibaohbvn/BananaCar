@@ -20,7 +20,7 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
 
     @Override
     public void insert(Xe xe) {
-        String sql = "Insert Xe values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "Insert Xe values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
                 xe.getMaXe(),
                 xe.getTenXe(),
@@ -38,14 +38,15 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
                 xe.isTayLaiTroLuc(),
                 xe.isTuiKhi(),
                 xe.isHTChongBoCungPhanh(),
-                xe.getBaoHanh());
+                xe.getBaoHanh(),
+                xe.getGiaNhap());
     }
 
     @Override
     public void update(Xe xe) {
-        String sql = "Update Xe set TenXe=?,MaHang=?,maloai=?,Tonkho=?,DinhMucLonNhat=?,dinhmucnhonhat=?,"
+        String sql = "Update Xe set TenXe=?,MaHang=?,maloai=?,Tonkho=?,DinhMucnhonhat=?,dinhmuclonnhat=?,"
                 + "giaban=?,hinh=?,trangthai=?,chongoi=?,dongco=?,sucmanh=?,taylaitroluc=?,tuikhi=?,HTchongbocungphanh=?,"
-                + "baohanh=? where maxe=?";
+                + "baohanh=?, gianhap = ? where maxe=?";
         JdbcHelper.executeUpdate(sql,
                 xe.getTenXe(),
                 xe.getMaHang(),
@@ -63,6 +64,7 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
                 xe.isTuiKhi(),
                 xe.isHTChongBoCungPhanh(),
                 xe.getBaoHanh(),
+                xe.getGiaNhap(),
                 xe.getMaXe());
     }
 
@@ -91,6 +93,7 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
         xe.setTuiKhi(rs.getBoolean("TuiKhi"));
         xe.setHTChongBoCungPhanh(rs.getBoolean("HTchongbocungphanh"));
         xe.setBaoHanh(rs.getInt("BaoHanh"));
+        xe.setGiaNhap(rs.getFloat("GiaNhap"));
         return xe;
     }
     @Override
@@ -127,4 +130,21 @@ public class XeDAO extends BananaCarDAO<Xe, String>{
         String sql="SELECT * FROM Xe WHERE maxe LIKE ? or tenxe like ?";
         return selectBySql(sql, "%"+maxe+"%", "%"+tenxe+"%");
     }
+    
+    public int tongXeGanHet() throws SQLException{
+        int dem = 0;
+        String sql = "select COUNT(*) AS 'COUNT' from Xe\n" +
+"where TonKho < DinhMucNhoNhat";
+        ResultSet rs = JdbcHelper.executeQuery(sql);
+        while(rs.next()){
+            dem = rs.getInt(1);
+        }
+        return dem;
+    }
+    public List<Xe> selectAllXeGanHet() {
+        String sql = "select* from Xe\n" +
+"where TonKho < DinhMucNhoNhat";
+        return selectBySql(sql);
+    }
+    
 }

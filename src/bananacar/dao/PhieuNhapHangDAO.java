@@ -22,31 +22,31 @@ public class PhieuNhapHangDAO extends BananaCarDAO<PhieuNhapHang, String>{
     @Override
     public void insert(PhieuNhapHang pn) {
         String sql ="Insert PhieuNhapHang values"
-                + " (?,?,?)";
+                + " (?,?,?,?,?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
                 pn.getMaPhieuNhap(),
                 pn.getMaNV(),
                 pn.getNgayNhap(),
-                pn.getMaHang(),
-                pn.getTongSoLuong(),
-                pn.getChietKhau(),
-                pn.getGTGT(),
-                pn.getThanhTien(),
-                pn.getGhiChu()); 
-    }
-
-    @Override
-    public void update(PhieuNhapHang pn) {
-        String sql="UPDATE PhieuNhapHang SET MaNV=?, NgayNhap=?, mahang =?, tongsoluong =?, chietkhau=?, gtgt=?, thanhtien=?,ghichu=? WHERE MaPHieunhap=?";
-        JdbcHelper.executeUpdate(sql, 
-                pn.getMaNV(),
-                pn.getNgayNhap(),
-                pn.getMaHang(),
                 pn.getTongSoLuong(),
                 pn.getChietKhau(),
                 pn.getGTGT(),
                 pn.getThanhTien(),
                 pn.getGhiChu(),
+                pn.getTongTienXe()); 
+    }
+
+    @Override
+    public void update(PhieuNhapHang pn) {
+        String sql="UPDATE PhieuNhapHang SET MaNV=?, NgayNhap=?, tongsoluong =?, chietkhau=?, gtgt=?, thanhtien=?,ghichu=?, tongtienxe = ? WHERE MaPHieunhap=?";
+        JdbcHelper.executeUpdate(sql, 
+                pn.getMaNV(),
+                pn.getNgayNhap(),
+                pn.getTongSoLuong(),
+                pn.getChietKhau(),
+                pn.getGTGT(),
+                pn.getThanhTien(),
+                pn.getGhiChu(),
+                pn.getTongTienXe(),
                 pn.getMaPhieuNhap()
             );
     }
@@ -62,7 +62,7 @@ public class PhieuNhapHangDAO extends BananaCarDAO<PhieuNhapHang, String>{
         pn.setMaPhieuNhap(rs.getString("maphieunhap"));
         pn.setMaNV(rs.getString("manv"));
         pn.setNgayNhap(rs.getDate("Ngaynhap"));
-        pn.setMaHang(rs.getString("MaHang"));
+        pn.setTongTienXe(rs.getFloat("tongtienxe"));
         pn.setTongSoLuong(rs.getInt("TongSoLuong"));
         pn.setChietKhau(rs.getFloat("chietkhau"));
         pn.setGTGT(rs.getFloat("GTGT"));
@@ -78,7 +78,7 @@ public class PhieuNhapHangDAO extends BananaCarDAO<PhieuNhapHang, String>{
 
     @Override
     public PhieuNhapHang selectById(String MaPhieuNhap) {
-        String sql = "SELECT * FROM PhieuNhapHang WHERE phieunhaphang=?";
+        String sql = "SELECT * FROM PhieuNhapHang WHERE maphieunhap=?";
         List<PhieuNhapHang> list = selectBySql(sql, MaPhieuNhap);
         return list.size() > 0 ? list.get(0) : null;
     }
@@ -99,5 +99,28 @@ public class PhieuNhapHangDAO extends BananaCarDAO<PhieuNhapHang, String>{
             throw new RuntimeException();
         }
     }
-    
+    public int tongPhieuNhap() throws SQLException{
+        int dem = 0;
+        String sql = "SELECT COUNT(*) AS 'COUNT' FROM PhieuNhapHang";
+        ResultSet rs = JdbcHelper.executeQuery(sql);
+        while(rs.next()){
+            dem = rs.getInt(1);
+        }
+        return dem;
+    }
+     public List<PhieuNhapHang> selectByKeyword(String mapn, String manv) {
+        String sql="SELECT * FROM Phieunhaphang WHERE maPhieunhap LIKE ? or manv like ?";
+        return selectBySql(sql, "%"+mapn+"%", "%"+manv+"%");
+    }
+     public List<PhieuNhapHang> selectByKeywordMaPN(String mapn) {
+        String sql="SELECT * FROM Phieunhaphang WHERE maPhieunhap LIKE ?";
+        return selectBySql(sql, "%"+mapn+"%");
+    }
+     public PhieuNhapHang timPN(String TenDangNhap){
+        String sql = "SELECT * FROM PhieuNhapHang WHERE Maphieunhap = ?";
+        List<PhieuNhapHang> list = selectBySql(sql, TenDangNhap);
+        return list.size() > 0 ? list.get(0) : null;
+    }
 }
+
+    

@@ -7,9 +7,13 @@ package bananacar.ui;
 
 import bananacar.dao.HangXeDAO;
 import bananacar.helper.MsgBox;
+import bananacar.helper.utilityHelper;
 import bananacar.model.HangXe;
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -74,13 +78,23 @@ public class HangXeJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Mã hãng");
 
+        txtMaHang.setName("Mã hãng"); // NOI18N
+
         jLabel3.setText("Tên hãng");
+
+        txtTenHang.setName("Tên hãng"); // NOI18N
 
         jLabel4.setText("Điện thoại");
 
+        txtDienThoai.setName("Điện thoại"); // NOI18N
+
         jLabel5.setText("Địa chỉ");
 
+        txtDiaChi.setName("Địa chỉ"); // NOI18N
+
         jLabel6.setText("Email");
+
+        txtEmail.setName("Email"); // NOI18N
 
         jLabel7.setText("Trạng thái");
 
@@ -294,12 +308,41 @@ public class HangXeJDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        insert();
+        if (utilityHelper.checkNullText(txtMaHang)
+                && utilityHelper.checkNullText(txtTenHang)
+//                && utilityHelper.checkNullText(txtNgaySinh)
+                && utilityHelper.checkNullText(txtDienThoai)
+                && utilityHelper.checkNullText(txtEmail)
+                && utilityHelper.checkNullText(txtDiaChi)) {
+            if (utilityHelper.checkMaKH(txtMaHang)
+                    && utilityHelper.checkName(txtTenHang)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    && utilityHelper.checkSDT(txtDienThoai)
+                    && utilityHelper.checkEmail(txtEmail)) {
+                if (checkTrungMa(txtMaHang)) {
+                    insert();
+                } else {
+                }
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        update();
+        if (utilityHelper.checkNullText(txtTenHang)
+//                && utilityHelper.checkNullText(txtNgaySinh)
+                && utilityHelper.checkNullText(txtDienThoai)
+                && utilityHelper.checkNullText(txtEmail)
+                && utilityHelper.checkNullText(txtDiaChi))
+                
+                        {
+            if (utilityHelper.checkName(txtTenHang)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    && utilityHelper.checkSDT(txtDienThoai)
+                    && utilityHelper.checkEmail(txtEmail)) {
+                update();
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -499,4 +542,15 @@ public class HangXeJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Sửa không thành công");
         }
     }
+    public boolean checkTrungMa(JTextField txt) {
+        txt.setBackground(white);
+        if (daoHangXe.selectById(txt.getText()) == null) {
+            return true;
+        } else {
+            txt.setBackground(pink);
+            MsgBox.alert(this, txt.getName() + " đã bị tồn tại.");
+            return false;
+        }
+    }
+    
 }

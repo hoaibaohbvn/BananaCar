@@ -67,7 +67,7 @@ public class HoaDonDAO extends BananaCarDAO<HoaDon, String>{
         hd.setGiamGia(rs.getFloat("giamgia"));
         hd.setGTGT(rs.getFloat("gtgt"));
         hd.setThanhTien(rs.getFloat("thanhtien"));
-        hd.setHoaHong(rs.getFloat("Honghong"));
+        hd.setHoaHong(rs.getFloat("Hoahong"));
         hd.setTongTienHang(rs.getFloat("tongtienhang"));
         return hd;
     }
@@ -105,6 +105,20 @@ public class HoaDonDAO extends BananaCarDAO<HoaDon, String>{
     public int tongHoaDon() throws SQLException{
         int dem = 0;
         String sql = "SELECT COUNT(*) AS 'COUNT' FROM HoaDon";
+        ResultSet rs = JdbcHelper.executeQuery(sql);
+        while(rs.next()){
+            dem = rs.getInt(1);
+        }
+        return dem;
+    }
+    public List<HoaDon> selectByKeyword(String mahd, String makh) {
+        String sql="SELECT * FROM HoaDon WHERE mahd LIKE ? or makh like ?";
+        return selectBySql(sql, "%"+mahd+"%", "%"+makh+"%");
+    }
+    
+    public int tongThanhTien() throws SQLException{
+        int dem = 0;
+        String sql = "SELECT SUM(ThanhTien) AS 'COUNT' FROM HoaDon";
         ResultSet rs = JdbcHelper.executeQuery(sql);
         while(rs.next()){
             dem = rs.getInt(1);

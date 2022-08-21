@@ -15,21 +15,21 @@ public class PhieuNhapHang {
     private String MaPhieuNhap;
     private String MaNV;
     private Date NgayNhap;
-    private String MaHang;
+    private float TongTienXe;
     private int TongSoLuong;
     private float ChietKhau;
     private float GTGT;
     private double ThanhTien;
     private String GhiChu;
-
+    
     public PhieuNhapHang() {
     }
 
-    public PhieuNhapHang(String MaPhieuNhap, String MaNV, Date NgayNhap, String MaHang, int TongSoLuong, float ChietKhau, float GTGT, double ThanhTien, String GhiChu) {
+    public PhieuNhapHang(String MaPhieuNhap, String MaNV, Date NgayNhap, float TongTienXe, int TongSoLuong, float ChietKhau, float GTGT, double ThanhTien, String GhiChu) {
         this.MaPhieuNhap = MaPhieuNhap;
         this.MaNV = MaNV;
         this.NgayNhap = NgayNhap;
-        this.MaHang = MaHang;
+        this.TongTienXe = TongTienXe;
         this.TongSoLuong = TongSoLuong;
         this.ChietKhau = ChietKhau;
         this.GTGT = GTGT;
@@ -61,12 +61,12 @@ public class PhieuNhapHang {
         this.NgayNhap = NgayNhap;
     }
 
-    public String getMaHang() {
-        return MaHang;
+    public float getTongTienXe() {
+        return TongTienXe;
     }
 
-    public void setMaHang(String MaHang) {
-        this.MaHang = MaHang;
+    public void setTongTienXe(float TongTienXe) {
+        this.TongTienXe = TongTienXe;
     }
 
     public int getTongSoLuong() {
@@ -108,5 +108,7 @@ public class PhieuNhapHang {
     public void setGhiChu(String GhiChu) {
         this.GhiChu = GhiChu;
     }
+
+    
     
 }

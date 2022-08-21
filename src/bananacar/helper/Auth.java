@@ -6,6 +6,7 @@
 package bananacar.helper;
 
 import bananacar.model.NguoiDung;
+import bananacar.model.PhieuNhapHang;
 
 /**
  *
@@ -13,6 +14,7 @@ import bananacar.model.NguoiDung;
  */
 public class Auth {
     public static NguoiDung user = null;
+    public static PhieuNhapHang pnh = null;
     public static void clearForm(){
         Auth.user = null;
     }
@@ -21,5 +23,8 @@ public class Auth {
     }
     public static boolean isManager(){
         return Auth.isLogin() && user.isVaiTro();
+    }
+    public static boolean isMaPN(){
+        return Auth.pnh != null;
     }
 }

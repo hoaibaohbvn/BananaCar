@@ -165,6 +165,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaHang">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="M&#xe3; h&#xe3;ng" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -172,6 +175,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTenHang">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="T&#xea;n h&#xe3;ng" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -179,6 +185,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDienThoai">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="&#x110;i&#x1ec7;n tho&#x1ea1;i" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -186,6 +195,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDiaChi">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="&#x110;&#x1ecb;a ch&#x1ec9;" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
@@ -193,6 +205,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtEmail">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="Email" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>

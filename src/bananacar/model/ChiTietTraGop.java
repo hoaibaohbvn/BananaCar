@@ -5,41 +5,40 @@
  */
 package bananacar.model;
 
-import bananacar.dao.HoaDonChiTietDAO;
-import java.io.Serializable;
+import bananacar.dao.ChiTietTraGopDAO;
 import java.util.HashMap;
 
 /**
  *
  * @author USER
  */
-public class HoaDonChiTiet implements Serializable{
-    private int MaHDCT;
-    private String MaHD;
+public class ChiTietTraGop {
+    private int MaCTTG;
+    private String MaHDTG;
     private String MaXe;
     private float DonGia;
     private int SoLuong;
     private float ThanhTien;
-    HoaDonChiTietDAO daohdct = new HoaDonChiTietDAO();
-    private HashMap<String, XeDTO> chiTietHoaDon;
-    public HoaDonChiTiet() {
-        chiTietHoaDon = new HashMap<>();
+    ChiTietTraGopDAO daocttg = new ChiTietTraGopDAO();
+    private HashMap<String, XeDTO> chiTietTraGop;
+    public ChiTietTraGop() {
+        chiTietTraGop = new HashMap<>();
     }
 
-    public int getMaHDCT() {
-        return MaHDCT;
+    public int getMaCTTG() {
+        return MaCTTG;
     }
 
-    public void setMaHDCT(int MaHDCT) {
-        this.MaHDCT = MaHDCT;
+    public void setMaCTTG(int MaCTTG) {
+        this.MaCTTG = MaCTTG;
     }
 
-    public String getMaHD() {
-        return MaHD;
+    public String getMaHDTG() {
+        return MaHDTG;
     }
 
-    public void setMaHD(String MaHD) {
-        this.MaHD = MaHD;
+    public void setMaHDTG(String MaHDTG) {
+        this.MaHDTG = MaHDTG;
     }
 
     public String getMaXe() {
@@ -74,33 +73,41 @@ public class HoaDonChiTiet implements Serializable{
         this.ThanhTien = ThanhTien;
     }
 
-    public HashMap<String, XeDTO> getChiTietHoaDon() {
-        return chiTietHoaDon;
+    public ChiTietTraGopDAO getDaocttg() {
+        return daocttg;
     }
 
-    public void setChiTietHoaDon(HashMap<String, XeDTO> chiTietHoaDon) {
-        this.chiTietHoaDon = chiTietHoaDon;
+    public void setDaocttg(ChiTietTraGopDAO daocttg) {
+        this.daocttg = daocttg;
+    }
+
+    public HashMap<String, XeDTO> getChiTietTraGop() {
+        return chiTietTraGop;
+    }
+
+    public void setChiTietTraGop(HashMap<String, XeDTO> chiTietTraGop) {
+        this.chiTietTraGop = chiTietTraGop;
     }
     public void addProduct(XeDTO xe) {
         String MaXe = xe.getXe().getMaXe();
         // nếu tồn tại SP trong giỏ hàng thì cộng thêm số lượng mua mới vào
-        if (chiTietHoaDon.containsKey(MaXe)) {
+        if (chiTietTraGop.containsKey(MaXe)) {
             // soLuong = soLuongCu + soLuongMoi
             
-            int soLuong = chiTietHoaDon.get(MaXe).getSoLuong() + xe.getSoLuong();
+            int soLuong = chiTietTraGop.get(MaXe).getSoLuong() + xe.getSoLuong();
             // cập nhật lại số lượng:
-            chiTietHoaDon.get(MaXe).setSoLuong(soLuong);
+            chiTietTraGop.get(MaXe).setSoLuong(soLuong);
             
         } else { // nếu SP chưa có trong giỏ hàng thì put mới vào hashmap
-            chiTietHoaDon.put(MaXe, xe);
+            chiTietTraGop.put(MaXe, xe);
             
         }
     }
     
     public boolean removeProduct(String MaXe) {
         // kiểm tra SP nếu tồn tại thì remove khỏi hashmap
-        if (chiTietHoaDon.containsKey(MaXe)) {
-            chiTietHoaDon.remove(MaXe);
+        if (chiTietTraGop.containsKey(MaXe)) {
+            chiTietTraGop.remove(MaXe);
             return true;
         } else { 
             return false;
@@ -110,6 +117,6 @@ public class HoaDonChiTiet implements Serializable{
 
     @Override
     public String toString() {
-        return MaHD;
+        return MaHDTG;
     }
 }

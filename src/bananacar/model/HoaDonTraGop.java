@@ -12,7 +12,7 @@ import java.util.Date;
  * @author USER
  */
 public class HoaDonTraGop {
-    private int MaHDTG;
+    private String MaHDTG;
     private String MaKH;
     private String MaNV;
     private Date NgayBan;
@@ -27,7 +27,7 @@ public class HoaDonTraGop {
     public HoaDonTraGop() {
     }
 
-    public HoaDonTraGop(int MaHDTG, String MaKH, String MaNV, Date NgayBan, int TongSoLuong, float GiamGia, float GTGT, int SoNamTraGop, float TraGopMoiThang, float TongTienTraGop, float TongTienXe) {
+    public HoaDonTraGop(String MaHDTG, String MaKH, String MaNV, Date NgayBan, int TongSoLuong, float GiamGia, float GTGT, int SoNamTraGop, float TraGopMoiThang, float TongTienTraGop, float TongTienXe) {
         this.MaHDTG = MaHDTG;
         this.MaKH = MaKH;
         this.MaNV = MaNV;
@@ -41,11 +41,11 @@ public class HoaDonTraGop {
         this.TongTienXe = TongTienXe;
     }
 
-    public int getMaHDTG() {
+    public String getMaHDTG() {
         return MaHDTG;
     }
 
-    public void setMaHDTG(int MaHDTG) {
+    public void setMaHDTG(String MaHDTG) {
         this.MaHDTG = MaHDTG;
     }
 
@@ -128,5 +128,7 @@ public class HoaDonTraGop {
     public void setTongTienXe(float TongTienXe) {
         this.TongTienXe = TongTienXe;
     }
-    
+    public Integer toInt(){
+        return SoNamTraGop;
+    }
 }

@@ -12,13 +12,17 @@ import bananacar.helper.Auth;
 import bananacar.helper.MsgBox;
 import bananacar.helper.XDate;
 import bananacar.helper.XImage;
+import bananacar.helper.utilityHelper;
 import bananacar.model.HangXe;
 import bananacar.model.LoaiXe;
 import bananacar.model.Xe;
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
 import java.io.File;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -96,6 +100,8 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         jButton5 = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         cboTrangThai = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        txtGiaNhap = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDanhSachXe = new javax.swing.JTable();
@@ -111,7 +117,11 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
         jLabel2.setText("Mã xe");
 
+        txtMaXe.setName("Mã xe"); // NOI18N
+
         jLabel3.setText("Tên xe");
+
+        txtTenXe.setName("Tên xe"); // NOI18N
 
         jLabel4.setText("Mã hãng xe");
 
@@ -121,6 +131,8 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         cboLoaiXe2.setSelectedIndex(-1);
 
         jLabel6.setText("Tồn kho");
+
+        txtTonKho.setName("Tồn kho"); // NOI18N
 
         jLabel7.setText("Định mức nhỏ nhất");
 
@@ -132,9 +144,15 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
         jLabel12.setText("Chỗ ngồi");
 
+        txtChoNgoi.setName("Chỗ ngồi"); // NOI18N
+
         jLabel13.setText("Động cơ");
 
+        txtDongCo.setName("Động cơ"); // NOI18N
+
         jLabel14.setText("Sức mạnh");
+
+        txtSucManh.setName("Sức mạnh"); // NOI18N
 
         jLabel15.setText("Tay lái trợ lực");
 
@@ -150,7 +168,11 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
         jLabel18.setText("Bảo hành");
 
+        txtBaoHanh.setName("Bảo hành"); // NOI18N
+
         lblHinh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHinh.setMaximumSize(new java.awt.Dimension(250, 200));
+        lblHinh.setMinimumSize(new java.awt.Dimension(250, 200));
 
         jButton1.setText("Chọn ảnh");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +212,15 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         jLabel19.setText("Trạng thái");
 
         cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn", "Hết" }));
+        cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTrangThaiActionPerformed(evt);
+            }
+        });
+
+        jLabel20.setText("Giá nhập");
+
+        txtGiaNhap.setName(""); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,25 +273,31 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
                             .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(73, 73, 73))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addGap(17, 17, 17))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel18)
+                                                .addGap(124, 124, 124))
+                                            .addComponent(txtBaoHanh, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(40, 40, 40)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jButton1)
+                                    .addGap(75, 75, 75))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel11)
+                                        .addComponent(cboTrangThai, 0, 170, Short.MAX_VALUE)
+                                        .addComponent(jLabel20)
+                                        .addComponent(txtGiaNhap))
+                                    .addContainerGap()))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel19))
-                                .addGap(17, 17, 17))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cboTrangThai, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel18)
-                                        .addGap(124, 124, 124))
-                                    .addComponent(txtBaoHanh, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(40, 40, 40))))))
+                                .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,18 +326,20 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel20))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboHangXe2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDongCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDongCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGiaNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel14))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cboLoaiXe2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSucManh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -320,19 +359,17 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDMNN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboTuiKhi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel17)
-                    .addComponent(jButton1))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel17)))
+                    .addComponent(lblHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDMLN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboHTPhanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                    .addComponent(cboHTPhanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
@@ -345,16 +382,16 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
         tblDanhSachXe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã xe", "Tên xe", "Tên hãng", "Tên loại", "Tồn kho", "ĐMNN", "ĐMLN", "Giá", "Bảo hành", "Trạng thái"
+                "Mã xe", "Tên xe", "Tên hãng", "Tên loại", "Tồn kho", "ĐMNN", "ĐMLN", "Giá", "Giá nhập", "Bảo hành", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -454,7 +491,38 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        this.insert();
+        if (utilityHelper.checkNullText(txtMaXe)
+                && utilityHelper.checkNullText(txtTenXe)
+//                && utilityHelper.checkNullText(txtNgaySinh)
+                && utilityHelper.checkNullText(txtTonKho)
+                && utilityHelper.checkNullText(txtDMNN)
+                && utilityHelper.checkNullText(txtDMLN)
+                && utilityHelper.checkNullText(txtBaoHanh)
+                && utilityHelper.checkNullText(txtGiaBan)
+                && utilityHelper.checkNullText(txtChoNgoi)
+                && utilityHelper.checkNullText(txtDongCo)
+                && utilityHelper.checkNullText(txtSucManh)
+                && utilityHelper.checkNullText(txtGiaNhap)) {
+            if (utilityHelper.checkMaKH(txtMaXe)
+                    && utilityHelper.checkName(txtTenXe)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    && utilityHelper.checkSoLuong(txtTonKho)
+                    && utilityHelper.checkSoLuong(txtDMNN)
+                    && utilityHelper.checkSoLuong(txtDMLN)
+                    && utilityHelper.checkSoLuong(txtBaoHanh)
+                    && utilityHelper.checkSoLuong(txtChoNgoi)
+                    && utilityHelper.checkSoLuong(txtDongCo)
+                    && utilityHelper.checkSoLuong(txtSucManh)
+                    && utilityHelper.checkGia(txtGiaBan)
+                    && utilityHelper.checkGia(txtGiaNhap)) {
+                if (checkTrungMa(txtMaXe)) {
+                    if (checkGiaCa(txtGiaNhap) && checkDinhMuc(txtDMLN)) {
+                    this.insert();
+                }
+                } else {
+                }
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -480,7 +548,37 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        update();
+        if (utilityHelper.checkNullText(txtTenXe)
+//                && utilityHelper.checkNullText(txtNgaySinh)
+                && utilityHelper.checkNullText(txtTonKho)
+                && utilityHelper.checkNullText(txtDMNN)
+                && utilityHelper.checkNullText(txtDMLN)
+                && utilityHelper.checkNullText(txtBaoHanh)
+                && utilityHelper.checkNullText(txtGiaBan)
+                && utilityHelper.checkNullText(txtChoNgoi)
+                && utilityHelper.checkNullText(txtDongCo)
+                && utilityHelper.checkNullText(txtSucManh)
+                && utilityHelper.checkNullText(txtGiaNhap))
+                
+                        {
+            if (utilityHelper.checkName(txtTenXe)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    && utilityHelper.checkName(txtTenXe)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    && utilityHelper.checkSoLuong(txtTonKho)
+                    && utilityHelper.checkSoLuong(txtDMNN)
+                    && utilityHelper.checkSoLuong(txtDMLN)
+                    && utilityHelper.checkSoLuong(txtBaoHanh)
+                    && utilityHelper.checkSoLuong(txtChoNgoi)
+                    && utilityHelper.checkSoLuong(txtDongCo)
+                    && utilityHelper.checkSoLuong(txtSucManh)
+                    && utilityHelper.checkGia(txtGiaBan)
+                    && utilityHelper.checkGia(txtGiaNhap)) {
+                if(checkGiaCa(txtGiaNhap) && checkDinhMuc(txtDMLN)){
+                    update();
+                }
+            }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtKeysKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeysKeyReleased
@@ -488,6 +586,10 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         fillTableToTable();
         clearForm();
     }//GEN-LAST:event_txtKeysKeyReleased
+
+    private void cboTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrangThaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTrangThaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -555,6 +657,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -575,6 +678,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtDMNN;
     private javax.swing.JTextField txtDongCo;
     private javax.swing.JTextField txtGiaBan;
+    private javax.swing.JTextField txtGiaNhap;
     private javax.swing.JTextField txtKeys;
     private javax.swing.JTextField txtMaXe;
     private javax.swing.JTextField txtSucManh;
@@ -600,6 +704,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
                     xe.getDinhMucNhoNhat(),
                     xe.getDinhMucLonNhat(),
                     xe.getGiaBan(),
+                    xe.getGiaNhap(),
                     xe.getBaoHanh(),
                     xe.isTrangThai()?"Còn hàng":"Hết hàng"
                 };
@@ -660,19 +765,29 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         xe.setTuiKhi(cboTuiKhi.getSelectedIndex() == 0);
         xe.setHTChongBoCungPhanh(cboHTPhanh.getSelectedIndex() == 0);
         xe.setBaoHanh(Integer.valueOf(txtBaoHanh.getText()));
+        xe.setGiaNhap(Float.valueOf(txtGiaNhap.getText()));
         return xe;
     }
     
     private void setForm(Xe xe){
         txtMaXe.setText(xe.getMaXe());
         txtTenXe.setText(xe.getTenXe());
-        cboHangXe2.setSelectedItem(xe.getMaHang());
-        cboLoaiXe2.setSelectedItem(xe.getMaLoai());
+        cboHangXe2.setSelectedIndex(1);
+        cboLoaiXe2.setSelectedItem(1);
         txtTonKho.setText(String.valueOf(xe.getTonKho()));
         txtDMNN.setText(String.valueOf(xe.getDinhMucNhoNhat()));
         txtDMLN.setText(String.valueOf(xe.getDinhMucLonNhat()));
         txtGiaBan.setText(String.valueOf(xe.getGiaBan()));
-        lblHinh.setToolTipText(xe.getHinh());
+        if (xe.getHinh() != null) {
+            lblHinh.setToolTipText(xe.getHinh());
+            lblHinh.setIcon(XImage.read(xe.getHinh()));
+            /*
+            ImageIcon readLogo(String tenFile) đọc file trong thư mục logos theo tên file trả về ImageIcon
+            void setIcon(ImageIcon icon) set Icon cho lbl
+             */
+        } else {
+            lblHinh.setIcon(XImage.read("Photos-icon.png"));
+        }
         cboTrangThai.setSelectedIndex(xe.isTrangThai()?0:1);
         txtChoNgoi.setText(String.valueOf(xe.getChoNgoi()));
         txtDongCo.setText(String.valueOf(xe.getDongCo()));
@@ -681,6 +796,7 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         cboTuiKhi.setSelectedIndex(xe.isTuiKhi()?0:1);
         cboHTPhanh.setSelectedIndex(xe.isHTChongBoCungPhanh()?0:1);
         txtBaoHanh.setText(String.valueOf(xe.getBaoHanh()));
+        txtGiaNhap.setText(String.valueOf(xe.getGiaNhap()));
     }
     
 //    void selectComboBox() {
@@ -709,12 +825,14 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
         }
     }
     private void insert() {
-        Xe xe = getForm();
+        Xe xe = getFormThemXe();
+        
         try {
+            
             daoXe.insert(xe);
             this.fillTableToTable();
             this.clearForm();
-            MsgBox.alert(this, "Thêm thành công");
+            MsgBox.alert(this, "Thêm thành công \n Tồn kho = 0 \n Trạng thái: Hết hàng");
         } catch (Exception e) {
             e.printStackTrace();
             MsgBox.alert(this, "Thêm thất bại");
@@ -778,4 +896,70 @@ public class DanhSachXeJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Sửa không thành công");
         }
     }
+    private Xe getFormThemXe() {
+        Xe xe = new Xe();
+        
+        xe.setMaXe(txtMaXe.getText());
+        xe.setTenXe(txtTenXe.getText());
+        xe.setMaHang((String) cboHangXe2.getSelectedItem());
+        xe.setMaLoai((String) cboLoaiXe2.getSelectedItem());
+        txtTonKho.setText("0");
+        cboTrangThai.setSelectedIndex(1);
+        xe.setTonKho(Integer.valueOf(txtTonKho.getText()));
+        xe.setDinhMucNhoNhat(Integer.valueOf(txtDMNN.getText()));
+        xe.setDinhMucLonNhat(Integer.valueOf(txtDMLN.getText()));
+        xe.setGiaBan(Float.valueOf(txtGiaBan.getText()));
+        xe.setHinh(lblHinh.getToolTipText());
+        xe.setTrangThai(cboTrangThai.getSelectedIndex() == 0);
+        xe.setChoNgoi(Integer.valueOf(txtChoNgoi.getText()));
+        xe.setDongCo(Integer.valueOf(txtDongCo.getText()));
+        xe.setSucManh(Integer.valueOf(txtSucManh.getText()));
+        xe.setTayLaiTroLuc(cboTLTL.getSelectedIndex() == 0);
+        xe.setTuiKhi(cboTuiKhi.getSelectedIndex() == 0);
+        xe.setHTChongBoCungPhanh(cboHTPhanh.getSelectedIndex() == 0);
+        xe.setBaoHanh(Integer.valueOf(txtBaoHanh.getText()));
+        xe.setGiaNhap(Float.valueOf(txtGiaNhap.getText()));
+        return xe;
+    }
+    
+    public boolean checkTrungMa(JTextField txt) {
+        txt.setBackground(white);
+        if (daoXe.selectById(txt.getText()) == null) {
+            return true;
+        } else {
+            txt.setBackground(pink);
+            MsgBox.alert(this, txt.getName() + " đã bị tồn tại.");
+            return false;
+        }
+    }
+    public boolean checkGiaCa(JTextField txt){
+        Xe xe = new Xe();
+        float giaNhap = Float.valueOf(txtGiaNhap.getText());
+        float giaBan = Float.valueOf(txtGiaBan.getText());
+        float tinhvon = (float) (giaBan * 0.7);
+        txt.setBackground(white);
+        if(tinhvon >= giaNhap){
+            return true;
+        }else {
+            txt.setBackground(pink);
+            MsgBox.alert(this, txt.getName() + " giá nhập phải nhỏ hơn giá bán tối thiểu 30%.");
+            return false;
+        }
+    }
+    
+    public boolean checkDinhMuc(JTextField txt){
+        Xe xe = new Xe();
+        float dmln = Float.valueOf(txtDMLN.getText());
+        float dmnn = Float.valueOf(txtDMNN.getText());
+        
+        txt.setBackground(white);
+        if(dmln > dmnn){
+            return true;
+        }else {
+            txt.setBackground(pink);
+            MsgBox.alert(this, txt.getName() + " định mức lớn nhất phải lớn hơn định mức nhỏ nhất");
+            return false;
+        }
+    }
+    
 }

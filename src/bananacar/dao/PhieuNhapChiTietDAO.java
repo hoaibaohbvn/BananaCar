@@ -21,9 +21,9 @@ public class PhieuNhapChiTietDAO extends BananaCarDAO<PhieuNhapChiTiet, String>{
 
     @Override
     public void insert(PhieuNhapChiTiet pnct) {
-        String sql ="Insert PhieuNhapChiTiet values (?,?,?,?,?,?)";
+        String sql ="Insert PhieuNhapChiTiet values (?,?,?,?,?)";
         JdbcHelper.executeUpdate(sql, 
-                pnct.getMaPNCT(),
+                
                 pnct.getMaPhieuNhap(),
                 pnct.getMaXe(),
                 pnct.getSoLuong(),
@@ -88,6 +88,15 @@ public class PhieuNhapChiTietDAO extends BananaCarDAO<PhieuNhapChiTiet, String>{
             ex.printStackTrace();
             throw new RuntimeException();
         }
+    }
+    public PhieuNhapChiTiet timTheoMa(String MaPN){
+        String sql = "SELECT * FROM Phieunhapchitiet WHERE MaPhieuNhap = ?";
+        List<PhieuNhapChiTiet> list = selectBySql(sql, MaPN);
+        return list.size() > 0 ? list.get(0) : null;
+    }
+    public List<PhieuNhapChiTiet> timDanhSachPNCT(String MaPhieuNhap){
+        String sql = "SELECT * FROM PhieuNhapChiTiet WHERE MaPhieuNhap = ?";
+        return selectBySql(sql, MaPhieuNhap);
     }
     
 }

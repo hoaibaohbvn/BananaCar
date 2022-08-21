@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14f59d45-672e-472a-a323-cb8b6fc381ff">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT dbo.NguoiDung.*
+FROM     dbo.NguoiDung]]>
+	</queryString>
+	<field name="TenDangNhap" class="java.lang.String"/>
+	<field name="MatKhau" class="java.lang.String"/>
+	<field name="HoTen" class="java.lang.String"/>
+	<field name="DienThoai" class="java.lang.String"/>
+	<field name="GioiTinh" class="java.lang.Boolean"/>
+	<field name="NgaySinh" class="java.sql.Date"/>
+	<field name="Email" class="java.lang.String"/>
+	<field name="DiaChi" class="java.lang.String"/>
+	<field name="Luong" class="java.math.BigDecimal"/>
+	<field name="VaiTro" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="64" y="2" width="100" height="20" uuid="acb7f0d9-95a9-4725-afd7-c49f9c44ec46"/>
+				<text><![CDATA[HoTen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="2" width="100" height="20" uuid="47932e69-5d59-4796-a311-af1d489856f8"/>
+				<text><![CDATA[DienThoai]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="2" width="100" height="20" uuid="5a8a1125-ea3e-497f-8a85-fa10db86f29f"/>
+				<text><![CDATA[Luong]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="64" y="45" width="133" height="20" uuid="caf11a87-4304-4b57-af06-edc0c260b7b0"/>
+				<textFieldExpression><![CDATA[$F{HoTen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="45" width="100" height="20" uuid="ef760b4d-15db-456f-93ff-e23942fc5aec"/>
+				<textFieldExpression><![CDATA[$F{DienThoai}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="45" width="100" height="20" uuid="d9cee35c-a1e9-402a-ba3e-540905e9d1cc"/>
+				<textFieldExpression><![CDATA[$F{Luong}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

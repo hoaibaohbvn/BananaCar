@@ -89,7 +89,15 @@ public class HoaDonChiTietDAO extends BananaCarDAO<HoaDonChiTiet, String>{
             throw new RuntimeException();
         }
     }
-
+    public List<HoaDonChiTiet> timDanhSachHDCT(String MaHoaDon){
+        String sql = "SELECT * FROM HoaDonChiTiet WHERE MaHD = ?";
+        return selectBySql(sql, MaHoaDon);
+    }
+    public List<HoaDonChiTiet> selectAllXeBanChay() {
+        String sql = "select DISTINCT maxe, sum(soluong) as tong from HoaDonChiTiet \n" +
+"group by maxe  having sum(soluong) > 5";
+        return selectBySql(sql);
+    }
    
     
 }

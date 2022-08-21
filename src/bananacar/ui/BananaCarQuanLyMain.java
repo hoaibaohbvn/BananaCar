@@ -5,7 +5,28 @@
  */
 package bananacar.ui;
 
+import bananacar.dao.HoaDonChiTietDAO;
+import bananacar.dao.HoaDonDAO;
+import bananacar.dao.HoaDonTraGopDAO;
+import bananacar.dao.ThongKeDAO;
+import bananacar.dao.XeDAO;
+import bananacar.helper.MsgBox;
+import bananacar.model.HoaDonChiTiet;
+import bananacar.model.HoaDonTraGop;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -16,14 +37,23 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
     /**
      * Creates new form BananaCarQuanLyMain
      */
-    public BananaCarQuanLyMain() {
+    HoaDonTraGopDAO daohdtg = new HoaDonTraGopDAO();
+    HoaDonDAO daohd = new HoaDonDAO();
+    HoaDonChiTietDAO daohdct = new HoaDonChiTietDAO();
+    ThongKeDAO daotk = new ThongKeDAO();
+    
+    public BananaCarQuanLyMain() throws SQLException {
         initComponents();
         this.setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        
+        demTongDonHang();
+        tongDanhThu();
+        demXeGanHet();
+        fillTableXeBanChay();
+        showBarChar();
     }
 
     void openThongTin(){
-        new ThongTinTaiKhoanJDialog(this, true).setVisible(true);
+        new NhanVienJDialog(this, true).setVisible(true);
     }
     void openNhanVien(){
         new NhanVienJDialog(this, true).setVisible(true);
@@ -43,6 +73,16 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
     void openLoaiXe(){
         new LoaiXeJDialog(this, true).setVisible(true);
     }
+    void dangXuat(){
+        if(MsgBox.confirm(this, "Bạn muốn đăng xuất?")){
+            
+            this.dispose();
+            new DangNhapJDialog(this, true).setVisible(true);
+        }
+    }
+    void openNhapHang(){
+        new DanhSachPhieuNhapJDialog(this, true).setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +92,25 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        plTongDon = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblTongDonHang = new javax.swing.JLabel();
+        plDoanhThu2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        lblTongdoanhThu = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        plThongBao = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        lblTongXeGanHet = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        plChart = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblXeChay = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -73,6 +132,202 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
+        plTongDon.setBackground(new java.awt.Color(255, 255, 255));
+        plTongDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                plTongDonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                plTongDonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                plTongDonMouseExited(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bananacar/icons/Finance-Purchase-Order-icon.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel2.setText("Tổng đơn hàng");
+
+        lblTongDonHang.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTongDonHang.setForeground(new java.awt.Color(255, 102, 102));
+        lblTongDonHang.setText("000");
+
+        javax.swing.GroupLayout plTongDonLayout = new javax.swing.GroupLayout(plTongDon);
+        plTongDon.setLayout(plTongDonLayout);
+        plTongDonLayout.setHorizontalGroup(
+            plTongDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(plTongDonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(plTongDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(plTongDonLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(22, 22, 22))
+                    .addGroup(plTongDonLayout.createSequentialGroup()
+                        .addComponent(lblTongDonHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        plTongDonLayout.setVerticalGroup(
+            plTongDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(plTongDonLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(plTongDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addGroup(plTongDonLayout.createSequentialGroup()
+                        .addComponent(lblTongDonHang)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(plTongDon);
+
+        plDoanhThu2.setBackground(new java.awt.Color(255, 255, 255));
+        plDoanhThu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                plDoanhThu2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                plDoanhThu2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                plDoanhThu2MouseExited(evt);
+            }
+        });
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bananacar/icons/dollar-folder-icon.png"))); // NOI18N
+
+        lblTongdoanhThu.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTongdoanhThu.setForeground(new java.awt.Color(255, 102, 102));
+        lblTongdoanhThu.setText("000");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel15.setText("Tổng doanh thu");
+
+        javax.swing.GroupLayout plDoanhThu2Layout = new javax.swing.GroupLayout(plDoanhThu2);
+        plDoanhThu2.setLayout(plDoanhThu2Layout);
+        plDoanhThu2Layout.setHorizontalGroup(
+            plDoanhThu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(plDoanhThu2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(plDoanhThu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTongdoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        plDoanhThu2Layout.setVerticalGroup(
+            plDoanhThu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(plDoanhThu2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(plDoanhThu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(plDoanhThu2Layout.createSequentialGroup()
+                        .addComponent(lblTongdoanhThu)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel15))
+                    .addComponent(jLabel13))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(plDoanhThu2);
+
+        plThongBao.setBackground(new java.awt.Color(255, 255, 255));
+        plThongBao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                plThongBaoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                plThongBaoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                plThongBaoMouseExited(evt);
+            }
+        });
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bananacar/icons/Emblems-emblem-important-icon.png"))); // NOI18N
+
+        lblTongXeGanHet.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTongXeGanHet.setForeground(new java.awt.Color(255, 102, 102));
+        lblTongXeGanHet.setText("000");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel9.setText("Xe sắp hết hàng");
+
+        javax.swing.GroupLayout plThongBaoLayout = new javax.swing.GroupLayout(plThongBao);
+        plThongBao.setLayout(plThongBaoLayout);
+        plThongBaoLayout.setHorizontalGroup(
+            plThongBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(plThongBaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addGroup(plThongBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(plThongBaoLayout.createSequentialGroup()
+                        .addComponent(lblTongXeGanHet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(7, 7, 7))
+                    .addGroup(plThongBaoLayout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        plThongBaoLayout.setVerticalGroup(
+            plThongBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(plThongBaoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(plThongBaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(plThongBaoLayout.createSequentialGroup()
+                        .addComponent(lblTongXeGanHet)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel9))
+                    .addComponent(jLabel7))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(plThongBao);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Thống kê doanh thu"));
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        plChart.setLayout(new java.awt.BorderLayout());
+        jPanel3.add(plChart, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel3);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Sản phẩm bán chạy"));
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        tblXeChay.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Mã xe", "Số lượng"
+            }
+        ));
+        jScrollPane1.setViewportView(tblXeChay);
+
+        jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel1.add(jPanel4);
 
         jMenu1.setText("Tài khoản");
 
@@ -85,6 +340,11 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem3.setText("Đăng xuất");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem2.setText("Thoát");
@@ -179,11 +439,15 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 767, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -211,7 +475,7 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        
+        openNhapHang();
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
@@ -228,6 +492,55 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.openLoaiXe();
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        dangXuat();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void plTongDonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plTongDonMouseExited
+        // TODO add your handling code here:
+        plTongDon.setBackground(Color.white);
+    }//GEN-LAST:event_plTongDonMouseExited
+
+    private void plTongDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plTongDonMouseEntered
+        // TODO add your handling code here:
+        plTongDon.setBackground(Color.CYAN);
+    }//GEN-LAST:event_plTongDonMouseEntered
+
+    private void plDoanhThu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plDoanhThu2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_plDoanhThu2MouseClicked
+
+    private void plDoanhThu2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plDoanhThu2MouseEntered
+        // TODO add your handling code here:
+        plDoanhThu2.setBackground(Color.CYAN);
+    }//GEN-LAST:event_plDoanhThu2MouseEntered
+
+    private void plDoanhThu2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plDoanhThu2MouseExited
+        // TODO add your handling code here:
+        plDoanhThu2.setBackground(Color.white);
+    }//GEN-LAST:event_plDoanhThu2MouseExited
+
+    private void plThongBaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plThongBaoMouseEntered
+        // TODO add your handling code here:
+        plThongBao.setBackground(Color.cyan);
+    }//GEN-LAST:event_plThongBaoMouseEntered
+
+    private void plThongBaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plThongBaoMouseExited
+        // TODO add your handling code here:
+        plThongBao.setBackground(Color.white);
+    }//GEN-LAST:event_plThongBaoMouseExited
+
+    private void plTongDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plTongDonMouseClicked
+        // TODO add your handling code here:
+        openHoaDon();
+    }//GEN-LAST:event_plTongDonMouseClicked
+
+    private void plThongBaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plThongBaoMouseClicked
+        // TODO add your handling code here:
+        openXeHet();
+    }//GEN-LAST:event_plThongBaoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -259,12 +572,22 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BananaCarQuanLyMain().setVisible(true);
+                try {
+                    new BananaCarQuanLyMain().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(BananaCarQuanLyMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -284,5 +607,68 @@ public class BananaCarQuanLyMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTongDonHang;
+    private javax.swing.JLabel lblTongXeGanHet;
+    private javax.swing.JLabel lblTongdoanhThu;
+    private javax.swing.JPanel plChart;
+    private javax.swing.JPanel plDoanhThu2;
+    private javax.swing.JPanel plThongBao;
+    private javax.swing.JPanel plTongDon;
+    private javax.swing.JTable tblXeChay;
     // End of variables declaration//GEN-END:variables
+    DecimalFormat dcf = new DecimalFormat("###,###,###,###.###");
+    private void demTongDonHang() throws SQLException{
+        int demhdtg = daohdtg.tongHoaDonTraGop();
+        int demhd = daohd.tongHoaDon();   
+        int tongHD = demhd + demhdtg;
+        lblTongDonHang.setText(String.valueOf(tongHD));
+    }
+    private void tongDanhThu() throws SQLException{
+        int tongdthd =daohd.tongThanhTien();
+        int tongdttg = daohdtg.tongThanhTien();
+        int tongDoanhThu = tongdthd + tongdttg;
+        lblTongdoanhThu.setText(dcf.format(tongDoanhThu));
+    }
+    XeDAO daoXe = new XeDAO();
+    private void demXeGanHet() throws SQLException{
+        int demXe = daoXe.tongXeGanHet();
+        lblTongXeGanHet.setText(String.valueOf(demXe));
+    }
+    void openXeHet(){
+        new DanhSachXeGanHetJDialog(this, true).setVisible(true);
+    }
+    
+    void fillTableXeBanChay() {
+        DefaultTableModel model = (DefaultTableModel) tblXeChay.getModel();
+        model.setRowCount(0);
+        
+        List<Object[]> list = daotk.getDSXeBanChay();
+        for (Object[] row : list) {
+            int soluong = (int) row[1];
+            model.addRow(new Object[]{row[0], soluong});
+        }
+
+    }
+    void showBarChar() throws SQLException{
+        DefaultCategoryDataset barchartData = new DefaultCategoryDataset();
+        float doanhthuNow = 0;
+        float doanhthuTG = 0;
+        doanhthuNow = daohd.tongThanhTien();
+        doanhthuTG = daohdtg.tongThanhTien();
+        barchartData.setValue(doanhthuNow, "Doanh thu trả ngay", "Hóa đơn trả ngay");
+        barchartData.setValue(doanhthuTG, "Doanh thu trả góp", "Hóa đơn trả góp");
+        
+        JFreeChart barChart = ChartFactory.createBarChart("Thống kê doanh thu", "Ghi chú", "Tiền", barchartData);
+        CategoryPlot bartad = barChart.getCategoryPlot();
+        ChartPanel barPane = new ChartPanel(barChart);
+        plChart.removeAll();
+        plChart.add(barPane,BorderLayout.CENTER);
+        plChart.validate();
+    }
+    
 }

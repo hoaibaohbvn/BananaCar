@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class JdbcHelper {
     public static String driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"; 
-    public static String dburl="jdbc:sqlserver://localhost:1433;databaseName=BananaCar";
+    public static String dburl="jdbc:sqlserver://MSI\\SQLEXPRESS\\SQLEXPRESS:1433;databaseName=BananaCar;encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2";
     public static String username="sa";
     public static String password="123";
     

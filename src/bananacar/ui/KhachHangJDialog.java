@@ -8,8 +8,15 @@ package bananacar.ui;
 import bananacar.dao.KhachHangDAO;
 import bananacar.helper.Auth;
 import bananacar.helper.MsgBox;
+import bananacar.helper.utilityHelper;
 import bananacar.model.KhachHang;
+import com.toedter.calendar.JDateChooser;
+import static java.awt.Color.pink;
+import static java.awt.Color.white;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -45,7 +52,6 @@ public class KhachHangJDialog extends javax.swing.JDialog {
         tabsKhachHang = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtMaKH = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -68,6 +74,7 @@ public class KhachHangJDialog extends javax.swing.JDialog {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         cboGioiTinh = new javax.swing.JComboBox<>();
+        txtMaKH = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         txtKeys = new javax.swing.JTextField();
@@ -85,7 +92,11 @@ public class KhachHangJDialog extends javax.swing.JDialog {
 
         jLabel3.setText("Họ và tên");
 
+        txtHoTen.setName("Họ và tên khách hàng"); // NOI18N
+
         jLabel5.setText("Điện thoại");
+
+        txtDienThoai.setName("Điện thoại"); // NOI18N
 
         jLabel6.setText("Giới tính");
 
@@ -95,12 +106,17 @@ public class KhachHangJDialog extends javax.swing.JDialog {
 
         jLabel8.setText("Nhân viên quản lý");
 
+        txtNhanVien.setEnabled(false);
+
         jLabel9.setText("Email");
+
+        txtEmail.setName("Email"); // NOI18N
 
         jLabel10.setText("Địa chỉ");
 
         txtDiaChi.setColumns(20);
         txtDiaChi.setRows(5);
+        txtDiaChi.setName("Địa chỉ"); // NOI18N
         jScrollPane2.setViewportView(txtDiaChi);
 
         jLabel11.setText("Ghi chú");
@@ -139,6 +155,8 @@ public class KhachHangJDialog extends javax.swing.JDialog {
 
         cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
 
+        txtMaKH.setName("Mã khách hàng"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,11 +173,11 @@ public class KhachHangJDialog extends javax.swing.JDialog {
                                     .addComponent(jLabel3)
                                     .addComponent(txtHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                     .addComponent(jLabel5)
-                                    .addComponent(txtDienThoai)
-                                    .addComponent(txtMaKH))
+                                    .addComponent(txtDienThoai))
                                 .addComponent(jLabel6)
                                 .addComponent(jLabel7))
-                            .addComponent(cboGioiTinh, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cboGioiTinh, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtMaKH))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -191,8 +209,8 @@ public class KhachHangJDialog extends javax.swing.JDialog {
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -340,12 +358,45 @@ public class KhachHangJDialog extends javax.swing.JDialog {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        insert();
+        if (utilityHelper.checkNullText(txtMaKH)
+                && utilityHelper.checkNullText(txtHoTen)
+//                && utilityHelper.checkNullText(txtNgaySinh)
+                && utilityHelper.checkNullText(txtDienThoai)
+                && utilityHelper.checkNullText(txtEmail)
+                && utilityHelper.checkNullText(txtDiaChi)) {
+            if (utilityHelper.checkMaKH(txtMaKH)
+                    && utilityHelper.checkName(txtHoTen)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    && utilityHelper.checkSDT(txtDienThoai)
+                    && utilityHelper.checkEmail(txtEmail)) {
+                if (checkTrungMa(txtMaKH)) {
+                    if (check16Nam(txtNgaySinh)) {
+                        this.insert();
+                    }
+                } else {
+                }
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        update();
+        if (utilityHelper.checkNullText(txtHoTen)
+//                && utilityHelper.checkNullText(txtNgaySinh)
+                && utilityHelper.checkNullText(txtDienThoai)
+                && utilityHelper.checkNullText(txtEmail)
+                && utilityHelper.checkNullText(txtDiaChi))
+                
+                        {
+            if (utilityHelper.checkName(txtHoTen)
+//                    && utilityHelper.checkDate(txtNgaySinh)
+                    && utilityHelper.checkSDT(txtDienThoai)
+                    && utilityHelper.checkEmail(txtEmail)) {
+                if (check16Nam(txtNgaySinh)) {
+                    this.update();
+                }
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -563,6 +614,33 @@ public class KhachHangJDialog extends javax.swing.JDialog {
             MsgBox.alert(this, "Sửa thành công");
         } catch (Exception e) {
             MsgBox.alert(this, "Sửa không thành công");
+        }
+    }
+    
+    public boolean checkTrungMa(JTextField txt) {
+        txt.setBackground(white);
+        if (daoKH.selectById(txt.getText()) == null) {
+            return true;
+        } else {
+            txt.setBackground(pink);
+            MsgBox.alert(this, txt.getName() + " đã bị tồn tại.");
+            return false;
+        }
+    }
+    public boolean check16Nam(JDateChooser txt) {
+        txt.setBackground(white);
+        Date date = txt.getDate();
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        c1.setTime(date);
+        c2.setTime(new Date());
+        long a = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
+        if (a >= 5844) {
+            return true;
+        } else {
+            txt.setBackground(pink);
+            MsgBox.alert(this, txt.getName() + " phải cách đây ít nhất 16 năm.");
+            return false;
         }
     }
 }

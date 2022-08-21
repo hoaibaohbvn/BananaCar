@@ -140,6 +140,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtMaLoai">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="M&#xe3; lo&#x1ea1;i" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -147,6 +150,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTenLoai">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="T&#xea;n lo&#x1ea1;i" noResource="true"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
